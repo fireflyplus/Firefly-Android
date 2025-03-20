@@ -45,13 +45,14 @@ public class MainActivity extends AppCompatActivity {
     TextView bonus;
     int userBonus = 0;
 
+    final String url = "https://gifts.fireflyplus.com/firefly-wall/";
     final String serverUrl = "https://demo.starmobicloud.net/userdata/";
-    final String testUid = "99843075";
 
-    final String url = "https://gifts.fireflyplus.com/v2/star-wall/index.html";
+    final String offerWallSecret = "05e98782776b44acb34d7f59d417f89b";
+    final String offerWallChannel = "T801001";
+    final String offerWallPlacementId = "T801001G05";
+    final String offerWallUserId = "99999999";
 
-    final String offerWallSecret = "557dfeada85b450bba605bdabf0dfa9c";
-    final String offerWallChannel = "CS0001";
 
     @SuppressLint("SetJavaScriptEnabled")
 
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }.execute(serverUrl + "getBonus/" + testUid);
+        }.execute(serverUrl + "getBonus/" + offerWallUserId);
     }
 
     public class OfferwallBridge {
@@ -115,13 +116,13 @@ public class MainActivity extends AppCompatActivity {
         public String initUser() {
             try {
                 JSONObject resp = new JSONObject();
-                resp.put("channel", offerWallChannel);
-                resp.put("userId", testUid); //产品内的用户ID
-                resp.put("time", System.currentTimeMillis());
-                resp.put("countryCode", "CN");
+                resp.put("appId", offerWallChannel);
+                resp.put("placementId", offerWallPlacementId);
+                resp.put("userId", offerWallUserId); //产品内的用户ID
                 resp.put("language", "en");
-                resp.put("taskGroup", "CS0001G01");
+                resp.put("countryCode", "CN");
                 resp.put("extra", "");
+                resp.put("time", System.currentTimeMillis());
                 resp.put("sign", makeSign(resp));
 
                 Log.v("OfferwallBridge", "initUser response " + resp.toString());
